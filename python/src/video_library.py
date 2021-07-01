@@ -1,6 +1,6 @@
 """A video library class."""
 
-from .video import Video
+from video import Video
 from pathlib import Path
 import csv
 
@@ -18,13 +18,14 @@ class VideoLibrary:
         """The VideoLibrary class is initialized."""
         self._videos = {}
         with open(Path(__file__).parent / "videos.txt") as video_file:
-            reader = _csv_reader_with_strip(
-                csv.reader(video_file, delimiter="|"))
+            reader = _csv_reader_with_strip(csv.reader(video_file, delimiter="|"))
             for video_info in reader:
                 title, url, tags = video_info
+                video_status = ""
                 self._videos[url] = Video(
                     title,
                     url,
+                    video_status,
                     [tag.strip() for tag in tags.split(",")] if tags else [],
                 )
 
@@ -43,3 +44,15 @@ class VideoLibrary:
             does not exist.
         """
         return self._videos.get(video_id, None)
+
+    def get_video_status(self, video_id):
+        """Returns the video status (playinng, paused, flgged) from the video library.
+
+        Args:
+            video_id: The video url.
+
+        Returns:
+            The Video status for the requested video_id. None if the video
+            does not exist.
+        """
+        return self._videos.get(video_status, None)

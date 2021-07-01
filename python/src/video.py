@@ -6,10 +6,17 @@ from typing import Sequence
 class Video:
     """A class used to represent a Video."""
 
-    def __init__(self, video_title: str, video_id: str, video_tags: Sequence[str]):
+    def __init__(
+        self,
+        video_title: str,
+        video_id: str,
+        video_status: str,
+        video_tags: Sequence[str],
+    ):
         """Video constructor."""
         self._title = video_title
         self._video_id = video_id
+        self._video_status = video_status
 
         # Turn the tags into a tuple here so it's unmodifiable,
         # in case the caller changes the 'video_tags' they passed to us
@@ -24,6 +31,11 @@ class Video:
     def video_id(self) -> str:
         """Returns the video id of a video."""
         return self._video_id
+
+    @property
+    def video_status(self) -> str:
+        """Returns the video status if its playing or not."""
+        return self._video_status
 
     @property
     def tags(self) -> Sequence[str]:
